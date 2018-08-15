@@ -1,0 +1,52 @@
+\documentclass[a4paper,oneside]{memoir}
+\usepackage[utf8]{inputenc}
+
+\settypeblocksize{276mm}{200mm}{*} % Højde*bredde på side
+\setlrmargins{*}{*}{1}
+\setulmargins{*}{*}{0.5}
+\setheaderspaces{*}{3mm}{*}
+\checkandfixthelayout
+\pagestyle{plain}
+\makeatletter
+\makeoddhead{plain}{\@title}{\today}{\thepage}
+\makeevenhead{plain}{\thepage}{\today}{\@title}
+\setlength{\parindent}{0em}
+\makeatother
+
+\usepackage{datatool}
+\DTLsetseparator{,}
+\DTLloaddb{kort}{dyr.csv}
+
+\usepackage{graphicx}
+\usepackage{pgffor}
+\usepackage{tcolorbox}
+\input{tangocolors.tex}
+
+%\usepackage{showframe}
+
+\title{Dyrekort}
+\begin{document}
+
+\def\farver{{Aluminium},{Butter},{Chameleon},{Orange},{Chocolate},{SkyBlue},{Plum},{Slate},{ScarletRed}}
+\foreach \farve in \farver {%
+
+\tcbset{width=(\linewidth-7mm)/3,nobeforeafter,arc=4mm,
+colframe=\farve,colback=white,
+left=1mm,right=1mm,top=1mm,bottom=1mm,equal height group=parbox}
+\DTLforeach*{kort}
+{\tekst=Dyr, \billede=Billede}
+{ % Kort
+\begin{tcolorbox}
+	\vspace{1mm}
+	\Huge \centering \tekst  \\
+	\vspace{2mm}
+	\centering
+ 	\includegraphics[height=42mm]{\billede}
+\end{tcolorbox}
+\hspace{1mm} % Vandret afstand mellem kort
+\vspace{1mm} % Lodret afstand mellem kort
+} % Kort slut
+
+\cleardoublepage
+}
+\end{document}
