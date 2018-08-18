@@ -10,6 +10,7 @@
 \makeatletter
 \makeoddhead{plain}{\@title, sæt \arabic{KortSet}}{\today}{\thepage}
 \makeevenhead{plain}{\thepage}{\today}{\@title, sæt \arabic{KortSet}}
+\newcommand{\Titel}{\@title}
 \setlength{\parindent}{0em}
 \makeatother
 
@@ -25,13 +26,26 @@
 \newcounter{KortSet}
 \newcounter{KortNummer}[KortSet]
 
+
 %\usepackage{showframe}
 
 \title{Dyrekort}
 \begin{document}
 
 \def\farver{{Aluminium},{Butter},{Chameleon},{Orange},{Chocolate},{SkyBlue},{Plum},{Slate},{ScarletRed}}
-\foreach \farve in \farver {%
+
+% Ark med farvede overskrifter til hvert sæt kort.
+\setlength{\arrayrulewidth}{1mm}
+\foreach \farve in \farver {% 
+{\color{\farve} \HUGE
+\hfill \Titel \hfill {\small printet: \today}
+\hline
+\vfill
+}
+}
+\cleardoublepage
+
+\foreach \farve in \farver {% Loop der laver flere sæt kort, med forskellig farve
 \stepcounter{KortSet}
 
 \tcbset{width=(\linewidth-7mm)/3,nobeforeafter,arc=4mm,
@@ -55,5 +69,5 @@ left=1mm,right=1mm,top=1mm,bottom=1mm,equal height group=parbox}
 } % Kort slut
 
 \cleardoublepage
-}
+} % Slut kort sæt loop
 \end{document}
