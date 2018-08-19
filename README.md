@@ -1,2 +1,2 @@
 # latex-templates
-Latex skabeloner til at generering af forskellige kort til læringsaktiviteter i folkeskolen.
+Latex skabeloner til generering af forskellige kort til læringsaktiviteter i folkeskolen.
