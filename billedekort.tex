@@ -21,6 +21,7 @@
 \graphicspath{{./Billeder/}}
 \usepackage{pgffor}
 \usepackage{tcolorbox}
+\tcbuselibrary{skins,hooks}
 \input{tangocolors.tex}
 \newcounter{KortSet}
 \newcounter{KortNummer}[KortSet]
@@ -30,25 +31,26 @@
 \title{Dyrekort}
 \begin{document}
 
-\def\farver{{Aluminium},{Butter},{Chameleon},{Orange},{Chocolate},{SkyBlue},{Plum},{Slate},{ScarletRed}}
+\def\farver{{Aluminium}}%,{Butter},{Chameleon},{Orange},{Chocolate},{SkyBlue},{Plum},{Slate},{ScarletRed}}
 \foreach \farve in \farver {%
 \stepcounter{KortSet}
 
-\tcbset{width=(\linewidth-7mm)/3,nobeforeafter,arc=4mm,
+\tcbset{enhanced,width=(\linewidth-7mm)/3,nobeforeafter,arc=4mm,
 colframe=\farve,colback=white,
-left=1mm,right=1mm,top=1mm,bottom=1mm,equal height group=parbox}
+left=1mm,right=1mm,top=1mm,bottom=1mm,equal height group=kort,
+valign upper=center, valign lower=bottom, split=1}
 \DTLforeach*{kort}
 {\tekst=Dyr, \billede=Billede}
 { % Kort
 \stepcounter{KortNummer}
 \begin{tcolorbox}
-	\vspace{1mm}
+	\vspace{1mm} 
 	\Huge \centering \tekst  \\
-	\vspace{2mm}
+	\tcblower
 	\centering
  	\includegraphics[height=42mm]{\billede}
-	\vfill \hfill
-	{\small \arabic{KortNummer}}
+%	\vfill \hfill
+%	{\small \arabic{KortNummer}}
 \end{tcolorbox}
 \hspace{1mm} % Vandret afstand mellem kort
 \vspace{1mm} % Lodret afstand mellem kort
