@@ -51,14 +51,14 @@
 
 \tcbset{enhanced,width=(\linewidth-7mm)/3,nobeforeafter,arc=4mm,
 colframe=\farve,colback=white,
-left=1mm,right=1mm,top=1mm,bottom=1mm,equal height group=kort,
+left=1mm,right=1mm,top=1mm,bottom=1mm,middle=0mm,equal height group=kort,
 valign upper=center, valign lower=bottom, split=1}
 \DTLforeach*{kort}
 {\tekst=Dyr, \billede=Billede}
 { % Kort
 \stepcounter{KortNummer}
 \begin{tcolorbox}
-	\vspace{1mm}
+%	\vspace{1mm}
 	\Huge \centering \tekst  \\
 	\tcblower
 	\centering
