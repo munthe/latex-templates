@@ -1,0 +1,5 @@
+# Latex compile files:
+*.aux
+*.dvi
+*.log
+*.pdf
