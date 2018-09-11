@@ -1,0 +1,59 @@
+\documentclass[a4paper,oneside]{memoir}
+\usepackage[utf8]{inputenc}
+
+\settypeblocksize{276mm}{200mm}{*} % Højde*bredde på side
+\setlrmargins{*}{*}{1}
+\setulmargins{*}{*}{0.5}
+\setheaderspaces{*}{3mm}{*}
+\checkandfixthelayout
+\pagestyle{plain}
+\makeatletter
+\makeoddhead{plain}{\@title, sæt \arabic{KortSet}}{\today}{\thepage}
+\makeevenhead{plain}{\thepage}{\today}{\@title, sæt \arabic{KortSet}}
+\newcommand{\Titel}{\@title}
+\setlength{\parindent}{0em}
+\makeatother
+
+\usepackage{datatool}
+\DTLsetseparator{;}
+\DTLloaddb{kort}{fakta.csv}
+
+\usepackage{graphicx}
+\graphicspath{{./Billeder/}}
+\usepackage{pgffor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,hooks}
+\input{tangocolors.tex}
+\newcounter{KortSet}
+\newcounter{KortNummer}[KortSet]
+
+%\usepackage{showframe}
+
+\title{Dyrekort}
+\begin{document}
+
+\def\farver{{Butter},{ScarletRed}}
+
+\foreach \farve in \farver {% Loop der laver flere sæt kort, med forskellig farve
+\stepcounter{KortSet}
+
+\tcbset{enhanced,width=(\linewidth-7mm)/2,nobeforeafter,arc=4mm,
+colframe=\farve,colback=white,
+left=1mm,right=1mm,top=10mm,bottom=10mm,middle=10mm,equal height group=kort,
+valign upper=center, valign lower=bottom, split=1}
+\DTLforeach*{kort}
+{\ord=Ord, \forklaring=Forklaring}
+{ % Kort
+\stepcounter{KortNummer}
+\begin{tcolorbox}
+	\HUGE \centering \ord  \\
+	\tcblower
+	\Large \centering \forklaring
+\end{tcolorbox}
+\hspace{1mm} % Vandret afstand mellem kort
+\vspace{1mm} % Lodret afstand mellem kort
+} % Kort slut
+
+\cleardoublepage
+} % Slut kort sæt loop
+\end{document}
