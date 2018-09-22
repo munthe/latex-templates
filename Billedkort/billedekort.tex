@@ -1,5 +1,6 @@
+% lualatex quizogbyt.tex [database.csv]
+% Hvor csv filen skal have to kolonner [Dyr] og [Billede](som er den relative sti til et billede)
 \documentclass[a4paper,oneside]{memoir}
-\usepackage[utf8]{inputenc}
 
 \settypeblocksize{276mm}{200mm}{*} % Højde*bredde på side
 \setlrmargins{*}{*}{1}
@@ -16,7 +17,12 @@
 
 \usepackage{datatool}
 \DTLsetseparator{,}
-\DTLloaddb{kort}{dyr.csv}
+\DTLloaddb{kort}{
+\directlua{ % Tager første argument som database navn, eller standard til fakta.csv
+	if arg[2]
+	then tex.print(arg[2])
+	else tex.print("\string dyr.csv")
+end}}
 
 \usepackage{graphicx}
 \graphicspath{{./Billeder/}}
@@ -40,7 +46,7 @@
 \foreach \farve in \farver {% 
 {\color{\farve} \HUGE
 \hfill \Titel \hfill {\small printet: \today}
-\hline
+% \hline \\
 \vfill
 }
 }

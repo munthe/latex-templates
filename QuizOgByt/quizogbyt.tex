@@ -1,5 +1,6 @@
+% lualatex quizogbyt.tex [database.csv]
+% Hvor csv filen skal have to kolonner [Ord] og [Forklaring]
 \documentclass[a4paper,oneside]{memoir}
-\usepackage[utf8]{inputenc}
 
 \settypeblocksize{276mm}{200mm}{*} % Højde*bredde på side
 \setlrmargins{*}{*}{1}
@@ -16,7 +17,12 @@
 
 \usepackage{datatool}
 \DTLsetseparator{;}
-\DTLloaddb{kort}{fakta.csv}
+\DTLloaddb{kort}{
+\directlua{ % Tager første argument som database navn, eller standard til fakta.csv
+	if arg[2]
+	then tex.print(arg[2])
+	else tex.print("\string fakta.csv")
+end}}
 
 \usepackage{graphicx}
 \graphicspath{{./Billeder/}}

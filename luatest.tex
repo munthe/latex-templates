@@ -1,0 +1,13 @@
+\documentclass{article}
+
+\begin{document}
+
+  \directlua{
+    if arg[2] then
+		tex.print(arg[2])
+	else
+		tex.print("\string Ingen argumenter")
+    end
+  }
+
+\end{document}
