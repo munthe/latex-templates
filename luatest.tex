@@ -1,13 +1,14 @@
 \documentclass{article}
+\usepackage{luacode}
 
 \begin{document}
 
-  \directlua{
-    if arg[2] then
-		tex.print(arg[2])
-	else
-		tex.print("\string Ingen argumenter")
+\begin{luacode}
+    if not arg[2] then
+		arg[2] = "Ingen argumenter"
     end
-  }
+\end{luacode}
+
+\directlua{ tex.print(arg[2]) }
 
 \end{document}

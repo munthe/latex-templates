@@ -1,6 +1,7 @@
 % lualatex quizogbyt.tex [database.csv]
 % Hvor csv filen skal have to kolonner [Ord] og [Forklaring]
 \documentclass[a4paper,oneside]{memoir}
+\usepackage{luacode}
 
 \settypeblocksize{276mm}{200mm}{*} % Højde*bredde på side
 \setlrmargins{*}{*}{1}
@@ -15,14 +16,16 @@
 \setlength{\parindent}{0em}
 \makeatother
 
+\begin{luacode}
+    if arg[2] then
+		database_navn = arg[2]
+	else
+		database_navn = "fakta.csv"
+    end
+\end{luacode}
 \usepackage{datatool}
 \DTLsetseparator{;}
-\DTLloaddb{kort}{
-\directlua{ % Tager første argument som database navn, eller standard til fakta.csv
-	if arg[2]
-	then tex.print(arg[2])
-	else tex.print("\string fakta.csv")
-end}}
+\DTLloaddb{kort}{ \directlua{tex.print(database_navn)} }
 
 \usepackage{graphicx}
 \graphicspath{{./Billeder/}}
@@ -35,7 +38,7 @@ end}}
 
 %\usepackage{showframe}
 
-\title{Dyrekort}
+\title{\directlua{tex.print(database_navn)}}
 \begin{document}
 
 \def\farver{{Butter},{ScarletRed}}
