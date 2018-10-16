@@ -46,23 +46,23 @@
 \foreach \farve in \farver {% Loop der laver flere sæt kort, med forskellig farve
 \stepcounter{KortSet}
 
-\tcbset{enhanced,width=(\linewidth-7mm)/2,nobeforeafter,arc=4mm,
+\tcbset{enhanced,width=(\linewidth)/2,nobeforeafter,arc=4mm,
 colframe=\farve,colback=white,
 left=1mm,right=1mm,top=6mm,bottom=6mm,middle=6mm,equal height group=kort,
-valign upper=center, valign lower=bottom, split=1}
+valign upper=center, valign lower=bottom, split=1,
+enlarge top by=1mm, enlarge bottom by=1mm,grow to left by=-1mm, grow to right by=-1mm}%,show bounding box}
 \DTLforeach*{kort}
 {\ord=Ord, \forklaring=Forklaring}
-{ % Kort
-\stepcounter{KortNummer}
+{% Kort
+\stepcounter{KortNummer}%
 \begin{tcolorbox}
 	\HUGE \centering \ord  \\
 	\tcblower
 	\Large \centering \forklaring
-\end{tcolorbox}
-\hspace{1mm} % Vandret afstand mellem kort
-\vspace{1mm} % Lodret afstand mellem kort
-} % Kort slut
+\end{tcolorbox}%
+\allowbreak%
+}% Kort slut
 
 \cleardoublepage
-} % Slut kort sæt loop
+}% Slut kort sæt loop
 \end{document}

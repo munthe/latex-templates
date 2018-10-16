@@ -12,7 +12,7 @@
 \makeoddhead{plain}{\@title, sæt \arabic{KortSet}}{\today}{\thepage}
 \makeevenhead{plain}{\thepage}{\today}{\@title, sæt \arabic{KortSet}}
 \newcommand{\Titel}{\@title}
-\setlength{\parindent}{0em}
+\setlength{\parindent}{0mm}
 \makeatother
 
 \usepackage{datatool}
@@ -55,14 +55,16 @@ end}}
 \foreach \farve in \farver {% Loop der laver flere sæt kort, med forskellig farve
 \stepcounter{KortSet}
 
-\tcbset{enhanced,width=(\linewidth-7mm)/3,nobeforeafter,arc=4mm,
+%\hspace{1mm} % negativspace før første kort, hvorfor er dette nødvendigt? 
+\tcbset{enhanced,width=(\linewidth)/3,nobeforeafter,arc=4mm,
 colframe=\farve,colback=white,
 left=1mm,right=1mm,top=1mm,bottom=1mm,middle=0mm,equal height group=kort,
-valign upper=center, valign lower=bottom, split=1}
+valign upper=center, valign lower=bottom, split=1,
+enlarge top by=1mm, enlarge bottom by=1mm,grow to left by=-1mm, grow to right by=-1mm}%,show bounding box}
 \DTLforeach*{kort}
 {\tekst=Dyr, \billede=Billede}
-{ % Kort
-\stepcounter{KortNummer}
+{% Kort
+\stepcounter{KortNummer}%
 \begin{tcolorbox}
 %	\vspace{1mm}
 	\Huge \centering \tekst  \\
@@ -71,10 +73,9 @@ valign upper=center, valign lower=bottom, split=1}
  	\includegraphics[height=42mm]{\billede}
 %	\vfill \hfill
 %	{\small \arabic{KortNummer}}
-\end{tcolorbox}
-\hspace{1mm} % Vandret afstand mellem kort
-\vspace{1mm} % Lodret afstand mellem kort
-} % Kort slut
+\end{tcolorbox}%
+\allowbreak%
+}% Kort slut
 
 \cleardoublepage
 } % Slut kort sæt loop
