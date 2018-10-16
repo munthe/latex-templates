@@ -2,6 +2,7 @@
 % Hvor csv filen skal have to kolonner [Ord] og [Forklaring]
 \documentclass[a4paper,oneside]{memoir}
 \usepackage{luacode}
+\usepackage{ifdraft}
 
 \settypeblocksize{276mm}{200mm}{*} % Højde*bredde på side
 \setlrmargins{*}{*}{1}
@@ -15,6 +16,7 @@
 \newcommand{\Titel}{\@title}
 \setlength{\parindent}{0em}
 \makeatother
+\ifdraft{\usepackage{showframe}}{}
 
 \begin{luacode}
     if arg[2] then
@@ -36,8 +38,6 @@
 \newcounter{KortSet}
 \newcounter{KortNummer}[KortSet]
 
-%\usepackage{showframe}
-
 \title{\directlua{tex.print(database_navn)}}
 \begin{document}
 
@@ -50,7 +50,8 @@
 colframe=\farve,colback=white,
 left=1mm,right=1mm,top=6mm,bottom=6mm,middle=6mm,equal height group=kort,
 valign upper=center, valign lower=bottom, split=1,
-enlarge top by=1mm, enlarge bottom by=1mm,grow to left by=-1mm, grow to right by=-1mm}%,show bounding box}
+enlarge top by=1mm, enlarge bottom by=1mm,grow to left by=-1mm, grow to right by=-1mm}
+\ifdraft{\tcbset{show bounding box}}{}
 \DTLforeach*{kort}
 {\ord=Ord, \forklaring=Forklaring}
 {% Kort
