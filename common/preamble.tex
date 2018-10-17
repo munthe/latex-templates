@@ -1,0 +1,39 @@
+\usepackage{luacode}
+\usepackage{ifdraft}
+
+\settypeblocksize{276mm}{200mm}{*} % Højde*bredde på side
+\setlrmargins{*}{*}{1}
+\setulmargins{*}{*}{0.5}
+\setheaderspaces{*}{3mm}{*}
+\checkandfixthelayout
+\pagestyle{plain}
+\makeatletter
+\makeoddhead{plain}{\@title, sæt \arabic{KortSet}}{\today}{\thepage}
+\makeevenhead{plain}{\thepage}{\today}{\@title, sæt \arabic{KortSet}}
+\newcommand{\Titel}{\@title}
+\setlength{\parindent}{0mm}
+\makeatother
+\ifdraft{\usepackage{showframe}}{}
+
+\begin{luacode}
+    if arg[2] then
+		database_navn = arg[2]
+	else
+		database_navn = "sample.csv"
+    end
+\end{luacode}
+\usepackage{datatool}
+\DTLsetseparator{,}
+\DTLloaddb{kort}{ \directlua{tex.print(database_navn)} }
+
+\usepackage{graphicx}
+\graphicspath{{./Billeder/}}
+\usepackage{pgffor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,hooks}
+\input{../common/tangocolors.tex}
+\newcounter{KortSet}
+\newcounter{KortNummer}[KortSet]
+
+\title{\directlua{tex.print(database_navn)}}
+

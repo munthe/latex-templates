@@ -1,41 +1,8 @@
 % lualatex quizogbyt.tex [database.csv]
 % Hvor csv filen skal have to kolonner [Dyr] og [Billede](som er den relative sti til et billede)
 \documentclass[a4paper,oneside]{memoir}
-\usepackage{ifdraft}
+\input{../common/preamble}
 
-\settypeblocksize{276mm}{200mm}{*} % Højde*bredde på side
-\setlrmargins{*}{*}{1}
-\setulmargins{*}{*}{0.5}
-\setheaderspaces{*}{3mm}{*}
-\checkandfixthelayout
-\pagestyle{plain}
-\makeatletter
-\makeoddhead{plain}{\@title, sæt \arabic{KortSet}}{\today}{\thepage}
-\makeevenhead{plain}{\thepage}{\today}{\@title, sæt \arabic{KortSet}}
-\newcommand{\Titel}{\@title}
-\setlength{\parindent}{0mm}
-\makeatother
-\ifdraft{\usepackage{showframe}}{}
-
-\usepackage{datatool}
-\DTLsetseparator{,}
-\DTLloaddb{kort}{
-\directlua{ % Tager første argument som database navn, eller standard til fakta.csv
-	if arg[2]
-	then tex.print(arg[2])
-	else tex.print("\string dyr.csv")
-end}}
-
-\usepackage{graphicx}
-\graphicspath{{./Billeder/}}
-\usepackage{pgffor}
-\usepackage{tcolorbox}
-\tcbuselibrary{skins,hooks}
-\input{tangocolors.tex}
-\newcounter{KortSet}
-\newcounter{KortNummer}[KortSet]
-
-\title{Dyrekort}
 \begin{document}
 
 \def\farver{{Aluminium},{Butter},{Chameleon},{Orange},{Chocolate},{SkyBlue},{Plum},{Slate},{ScarletRed}}
