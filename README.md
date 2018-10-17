@@ -5,7 +5,8 @@
 Pt. er der to skabeloner *Billederkort* generere kort med en overskift og et billede. Men *QuizOgByt* generer simple kort med en stor tekst øverst og en en mindre længere tekst nederst. 
 
 Kortene kompileres ved at:
-```lualatex  Billederkort.tex [sti til csv fil] [antal kort sæt]
+```
+lualatex  Billederkort.tex [sti til csv fil] [antal kort sæt]
 ```
 
 Testet med en TexLive 2017 installation.
