@@ -1,4 +1,3 @@
-
 function string:split(sep) 
 	local res = {}
 	local pos = 1
@@ -6,7 +5,10 @@ function string:split(sep)
 	while true do 
 		local c = string.sub(self,pos,pos) --return a single char at pos
 		if (c == "") then break end
-		if (c == '"') then
+		if (c == " ") then
+			-- ignore spaces at the beginning
+			pos = pos+1
+		elseif (c == '"') then
 			-- quoted value (ignore separator within)
 			local txt = ""
 			repeat
@@ -18,7 +20,7 @@ function string:split(sep)
 				-- check first char AFTER quoted string, if it is another
 				-- quoted string without separator, then append it
 				-- this is the way to "escape" the quote char in a quote. example:
-				--   value1,"blub""blip""boing",value3  will result in blub"blip"boing  for the middle
+				-- value1,"blub""blip""boing",value3  will result in blub"blip"boing  for the middle
 			until (c ~= '"')
 			table.insert(res,txt)
 			assert(c == sep or c == "")
@@ -54,6 +56,8 @@ function readCSV(path, sep)
     return contents
 end
 
+--[[--
 data = readCSV("../QuizOgByt/sample.csv")
+print(data[15][1])
 print(data[15][2])
-
+--]]--

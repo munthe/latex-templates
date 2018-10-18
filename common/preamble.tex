@@ -1,4 +1,5 @@
 \usepackage{luacode}
+\directlua{require("../common/luafunctions.lua")}
 \usepackage{ifdraft}
 
 \settypeblocksize{276mm}{200mm}{*} % Højde*bredde på side
@@ -21,6 +22,8 @@
 	else
 		database_navn = "sample.csv"
     end
+	colorsPath = "../common/colors.csv"
+	number = 2
 \end{luacode}
 \usepackage{datatool}
 \DTLsetseparator{,}
@@ -31,9 +34,11 @@
 \usepackage{pgffor}
 \usepackage{tcolorbox}
 \tcbuselibrary{skins,hooks}
-\input{../common/tangocolors.tex}
 \newcounter{KortSet}
 \newcounter{KortNummer}[KortSet]
 
 \title{\directlua{tex.print(database_navn)}}
 
+\begin{document}
+
+\directlua{tex.print(loadColors(colorsPath,number))}
