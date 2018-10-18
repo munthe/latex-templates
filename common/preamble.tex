@@ -1,5 +1,12 @@
 \usepackage{luacode}
 \directlua{require("../common/luafunctions.lua")}
+\begin{luacode}
+	-- Reading commandline arguments
+    db_name = arg[2] or "sample.csv"
+	number = arg[3] or 1
+	colorsPath = "../common/colors.csv"
+\end{luacode}
+
 \usepackage{ifdraft}
 
 \settypeblocksize{276mm}{200mm}{*} % Højde*bredde på side
@@ -16,18 +23,9 @@
 \makeatother
 \ifdraft{\usepackage{showframe}}{}
 
-\begin{luacode}
-    if arg[2] then
-		database_navn = arg[2]
-	else
-		database_navn = "sample.csv"
-    end
-	colorsPath = "../common/colors.csv"
-	number = 2
-\end{luacode}
 \usepackage{datatool}
 \DTLsetseparator{,}
-\DTLloaddb{kort}{ \directlua{tex.print(database_navn)} }
+\DTLloaddb{kort}{ \directlua{tex.print(db_name)} }
 
 \usepackage{graphicx}
 \graphicspath{{./Billeder/}}
@@ -37,7 +35,7 @@
 \newcounter{KortSet}
 \newcounter{KortNummer}[KortSet]
 
-\title{\directlua{tex.print(database_navn)}}
+\title{\directlua{tex.print(db_name)}}
 
 \begin{document}
 
