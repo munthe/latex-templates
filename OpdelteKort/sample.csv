@@ -1,0 +1,14 @@
+Ord,Forklaring,Billede
+Statistik,Emne i matematik der handler om at beskrive virkeligheden ved hjælp af data.,
+Graf,"Et en billede af nogle data, fx et punktdiagram. Bliver ofte vist på et koordinatsystem.",
+Data,"Statistiske tal om et emne, fx. arealet af forskellige huse og deres pris.",
+Koordinatsystem,"En x-akse og y-akse, bruges til at vise data, fx. et punktplot.",Billeder/koordinatsystem.png
+Interval,Alle tallene i mellem to tal (også komma tal). Et interval med alle tallene mellem 3 og 5 skrives [3:5].,
+Lille interval,Når der er kort afstand mellem de to tal som afgrænser intervallet. Fx. [15:17],
+Stort interval,Når der er stor afstand mellem de to tal som afgrænser intervallet. Fx [2:14],
+Fremskrivning,"At fremskrive data, betyder at forudsige eller gætte hvad de vil blive på et senere tidspunkt. \n Hvis man kender arealet og prisen for nogle forskellige huse, kan vi gætte på prisen for et større hus, ved at fremskrive priserne.",
+Præcis,Når man ved noget med stor sikkerhed at det præcist.,Billeder/præcis.png
+Upræcis,Når man er usikker på noget er det upræcist.,Billeder/upræcis.jpg
+Lineær,"Når data danner en ret linje i et punktplot, siger man at der er en lineær korrelation.",Billeder/lineær.png
+Ikke-lineær,"Hvis data IKKE danner en ret linje i et punktplot, siger man er der er en ikke-lineær korrelation.",Billeder/ikkelineær.png
+Punktdiagram,,Billeder/punktdiagram.png
