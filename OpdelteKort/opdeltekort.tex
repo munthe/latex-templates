@@ -13,25 +13,35 @@ valign upper=center, valign lower=bottom, split=1,
 enlarge top by=1mm, enlarge bottom by=1mm,grow to left by=-1mm, grow to right by=-1mm}
 \ifdraft{\tcbset{show bounding box}}{}
 \DTLforeach*{kort}
-{\ord=Ord, \forklaring=Forklaring, \billede=Billede}
+{\ord=Ord}
 {% Kort
 \stepcounter{KortNummer}%
 \begin{tcolorbox}% Ord kort
-	\Huge \centering \ord  \\
+	\Huge \centering \ord
 \end{tcolorbox}%
 \allowbreak%
+}%
+\cleardoublepage
+\DTLforeach*{kort}
+{\forklaring=Forklaring}
+{% Kort
 \stepcounter{KortNummer}%
 \begin{tcolorbox}% Forklarings kort
-	\Large \centering \forklaring  \\
+	\Large \centering \forklaring
 \end{tcolorbox}%
 \allowbreak%
+}%
+\cleardoublepage
+\DTLforeach*{kort}
+{\billede=Billede}
+{% Kort
 \stepcounter{KortNummer}%
 \begin{tcolorbox}% Billede kort
 	\centering
  	\includegraphics[width=\linewidth, height=42mm, keepaspectratio]{\billede}
 \end{tcolorbox}%
 \allowbreak%
-}% Kort slut
+}%
 \cleardoublepage
 }% Slut kort sæt loop
 \end{document}
