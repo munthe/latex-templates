@@ -13,11 +13,12 @@
 \setlrmargins{*}{*}{1}
 \setulmargins{*}{*}{0.5}
 \setheaderspaces{*}{3mm}{*}
+\setheadfoot{\baselineskip}{0pt}
 \checkandfixthelayout
-\pagestyle{plain}
+\pagestyle{empty}
 \makeatletter
-\makeoddhead{plain}{\@title, sæt \arabic{KortSet}}{\today}{\thepage}
-\makeevenhead{plain}{\thepage}{\today}{\@title, sæt \arabic{KortSet}}
+\makeoddhead{empty}{\@title, sæt \arabic{KortSet}}{\today}{\thepage}
+\makeevenhead{empty}{\thepage}{\today}{\@title, sæt \arabic{KortSet}}
 \newcommand{\Titel}{\@title}
 \setlength{\parindent}{0mm}
 \makeatother
