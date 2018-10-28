@@ -1,7 +1,18 @@
 \documentclass{article}
 \usepackage{luacode}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\directlua{require("luafunctions.lua")}
+\begin{luacode}
+	-- Reading commandline arguments
+    db_path = arg[2] or "sample.csv"
+	number = arg[3] or 2
+	colorsPath = "colors.csv"
+\end{luacode}
 
 \begin{document}
+
+\directlua{tex.print(loadColors(colorsPath,number))}
 
 \begin{luacode}
     if not arg[2] then

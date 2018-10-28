@@ -1,4 +1,4 @@
-require("../common/readCSV")
+require("readCSV")
 
 function loadColors(path,number_of_colors,format)
 	-- Read colors from CSV file and return a string with definecolor latex commnads
@@ -13,6 +13,10 @@ function loadColors(path,number_of_colors,format)
 	end
 	res = res .. "\\def\\farver{" .. names:sub(1, -2) .. "}"
 	return res
+end
+
+function genCardcontent (number)
+	return "Kort" .. number 
 end
 
 -- print(loadColors("colors.csv",4))
