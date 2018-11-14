@@ -15,7 +15,8 @@ function loadColors(path,number_of_colors,format)
 	return res
 end
 
-function genCardcontent (number)
+function genContent (number)
+	-- Generates the card content, given the row number.
 	return "Kort" .. number 
 end
 

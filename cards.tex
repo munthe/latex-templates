@@ -1,6 +1,6 @@
 % lualatex quizogbyt.tex [database.csv]
 % Hvor csv filen skal have to kolonner [Ord] og [Forklaring]
-\documentclass[a4paper,oneside]{memoir}
+\documentclass[a4paper,oneside,draft]{memoir}
 \usepackage{luacode}
 \directlua{require("luafunctions.lua")}
 \begin{luacode}
@@ -52,9 +52,9 @@ enlarge top by=1mm, enlarge bottom by=1mm,grow to left by=-1mm, grow to right by
 \foreach \farve in \farver {% Loop der laver flere sæt kort, med forskellig farve
 \stepcounter{CardSet}%
 \tcbset{colframe=\farve}%
-\loop \stepcounter{CardNumber} \ifnum \value{CardNumber} < 5%
+\loop \stepcounter{CardNumber} \ifnum \value{CardNumber} < 7%
 \begin{tcolorbox}
-	\directlua{ tex.print( genCardcontent( tex.count['c@CardNumber'] ) ) }
+	\directlua{ tex.print( genContent( tex.count['c@CardNumber'] ) ) }
 \end{tcolorbox}%
 \allowbreak%
 \repeat%

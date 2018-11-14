@@ -56,8 +56,30 @@ function readCSV(path, sep)
     return contents
 end
 
+function tablelength(t)
+	-- Returns number of entries in a table
+	local count = 0
+	for _ in pairs(t) do count = count + 1 end
+	return count
+end
+
+function organizeData(db)
+	-- Reads the database and outputs
+	local data = { count = tablelength(db)-2 }
+    for i, v in ipairs(db[1]) do
+		if v == "FrontUpper" then
+			data["FrontUpper"] = {type = db[2][i]}
+			for j=3,data['count']+2 do
+				table.insert( data['FrontUpper'], db[j][i] )
+			end
+--		elseif v == FrontLower then
+		end
+    end
+	return data
+end
 --[[--
-data = readCSV("../QuizOgByt/sample.csv")
-print(data[15][1])
-print(data[15][2])
+data = organizeData( readCSV("sample.csv") ) 
+print(data.FrontUpper["type"])
+for i=1,data['count'] do print(data.FrontUpper[i]) end
+print(data['count'])
 --]]--
