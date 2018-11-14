@@ -46,13 +46,13 @@ function readCSV(path, sep)
 	Function to read a csv file and return a table of it's content
 	--]]--
     sep = sep or ','
-    local contents = {n=0}
+    local contents = {len=0}
     local file = assert(io.open(path, "r"),"Can't find CSV file at specified path")
     for line in file:lines() do
 		if (line == "") then break end -- Stop reading after first empty line
         fields = line:split(sep)
         table.insert(contents, fields)
-		contents['n'] = contents['n'] + 1 
+		contents.len = contents.len + 1 
     end
     file:close()
     return contents
@@ -60,21 +60,23 @@ end
 
 function organizeData(db)
 	-- Organizes the database ready for typesetting
-	local data = { n = db['n']-2 }
+	-- data.len is the number of cards
+	-- data.'ColumnNamee'.type is the content type
+	-- data.'ColumnNamee'[#] is the content
+	local data = { len = db.len-2 }
     for i, v in ipairs(db[1]) do
-		if v == "FrontUpper" then
-			data["FrontUpper"] = {type = db[2][i]}
-			for j=3,db['n'] do
-				table.insert( data['FrontUpper'], db[j][i] )
-			end
---		elseif v == FrontLower then
+		data[db[1][i]] = {type = db[2][i]}
+		for j=3,db.len do
+			table.insert( data[db[1][i]], db[j][i] )
 		end
     end
 	return data
 end
 --[[--
 data = organizeData( readCSV("sample.csv") ) 
-print(data.FrontUpper["type"])
-for i=1,data['n'] do print(data.FrontUpper[i]) end
-print(data['n'])
+print(data.len)
+print(data.FrontUpper.type)
+for i=1,data.len do print(data.FrontUpper[i]) end
+print(data.FrontLower.type)
+for i=1,data.len do print(data.FrontLower[i]) end
 --]]--
