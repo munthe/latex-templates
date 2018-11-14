@@ -46,30 +46,25 @@ function readCSV(path, sep)
 	Function to read a csv file and return a table of it's content
 	--]]--
     sep = sep or ','
-    local contents = {}
+    local contents = {n=0}
     local file = assert(io.open(path, "r"),"Can't find CSV file at specified path")
     for line in file:lines() do
+		if (line == "") then break end -- Stop reading after first empty line
         fields = line:split(sep)
         table.insert(contents, fields)
+		contents['n'] = contents['n'] + 1 
     end
     file:close()
     return contents
 end
 
-function tablelength(t)
-	-- Returns number of entries in a table
-	local count = 0
-	for _ in pairs(t) do count = count + 1 end
-	return count
-end
-
 function organizeData(db)
-	-- Reads the database and outputs
-	local data = { count = tablelength(db)-2 }
+	-- Organizes the database ready for typesetting
+	local data = { n = db['n']-2 }
     for i, v in ipairs(db[1]) do
 		if v == "FrontUpper" then
 			data["FrontUpper"] = {type = db[2][i]}
-			for j=3,data['count']+2 do
+			for j=3,db['n'] do
 				table.insert( data['FrontUpper'], db[j][i] )
 			end
 --		elseif v == FrontLower then
@@ -80,6 +75,6 @@ end
 --[[--
 data = organizeData( readCSV("sample.csv") ) 
 print(data.FrontUpper["type"])
-for i=1,data['count'] do print(data.FrontUpper[i]) end
-print(data['count'])
+for i=1,data['n'] do print(data.FrontUpper[i]) end
+print(data['n'])
 --]]--

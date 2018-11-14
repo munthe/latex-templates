@@ -1,4 +1,4 @@
-FrontUpper, FrontLower
+FrontUpper, FontLower
 SingleWord, Text
 Exoskelet, Et skelet der sidder udenpå kroppen.
 Endoskelet, Et skelet der sidder indeni kroppen.
@@ -17,3 +17,5 @@ Krybdyr, "En dyregruppe der indeholder fx skildpadder, krokodiller og slanger. D
 Pels, Det pattedyr har udenpå kroppen.
 Fjer, Det fugle har udenpå kroppen.
 Næb, Det fugle har i stedet for en mund.
+
+
