@@ -1,6 +1,6 @@
 % lualatex quizogbyt.tex [database.csv]
 % Hvor csv filen skal have to kolonner [Ord] og [Forklaring]
-\documentclass[a4paper,oneside,draft]{memoir}
+\documentclass[a4paper,oneside]{memoir}
 \usepackage{luacode}
 \begin{luacode}
 	-- Reading commandline arguments
@@ -41,7 +41,8 @@
 \tcbset{enhanced,width=(\linewidth)/3,nobeforeafter,arc=4mm,colback=white,
 left=1mm,right=1mm,top=6mm,bottom=6mm,middle=6mm,equal height group=kort,
 valign upper=center, valign lower=bottom, split=1,
-enlarge top by=1mm, enlarge bottom by=1mm,grow to left by=-1mm, grow to right by=-1mm}%
+enlarge top by=1mm, enlarge bottom by=1mm,grow to left by=-1mm, grow to right by=-1mm,
+fontupper=\Huge, fontlower=\Large}%
 \ifdraft{\tcbset{show bounding box}}{}%
 \directlua{tex.print(loadColors(colorsPath,number))}%
 \foreach \farve in \farver {% Loop der laver flere sæt kort, med forskellig farve
@@ -49,6 +50,7 @@ enlarge top by=1mm, enlarge bottom by=1mm,grow to left by=-1mm, grow to right by
 \tcbset{colframe=\farve}%
 \loop \stepcounter{CardNumber} \ifnum \value{CardNumber} < \directlua{tex.print(db.len+1)}%
 \begin{tcolorbox}
+	\centering
 	\directlua{ tex.print( db:genContent( tex.count['c@CardNumber'] ) ) }
 \end{tcolorbox}%
 \allowbreak%
