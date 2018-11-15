@@ -2,12 +2,11 @@
 % Hvor csv filen skal have to kolonner [Ord] og [Forklaring]
 \documentclass[a4paper,oneside,draft]{memoir}
 \usepackage{luacode}
-\directlua{require("luafunctions.lua")}
 \begin{luacode}
 	-- Reading commandline arguments
-    db_path = arg[2] or "sample.csv"
-	number = arg[3] or 2
-	colorsPath = "colors.csv"
+
+	-- Loading luafunctions
+	require("luafunctions.lua")
 \end{luacode}
 
 \usepackage{ifdraft}
@@ -26,10 +25,6 @@
 \setlength{\parindent}{0mm}
 \makeatother
 \ifdraft{\usepackage{showframe}}{}
-
-\begin{luacode}
-	db = readCSV( db_path )
-\end{luacode}
 
 \usepackage{graphicx}
 \graphicspath{{./Billeder/}}
@@ -52,13 +47,14 @@ enlarge top by=1mm, enlarge bottom by=1mm,grow to left by=-1mm, grow to right by
 \foreach \farve in \farver {% Loop der laver flere sæt kort, med forskellig farve
 \stepcounter{CardSet}%
 \tcbset{colframe=\farve}%
-\loop \stepcounter{CardNumber} \ifnum \value{CardNumber} < 7%
+\loop \stepcounter{CardNumber} \ifnum \value{CardNumber} < \directlua{tex.print(db.len+1)}%
 \begin{tcolorbox}
-	\directlua{ tex.print( genContent( tex.count['c@CardNumber'] ) ) }
+	\directlua{ tex.print( db:genContent( tex.count['c@CardNumber'] ) ) }
 \end{tcolorbox}%
 \allowbreak%
 \repeat%
 \cleardoublepage
+\directlua{db.row=1}%reset row number
 }% End color series
 \end{document}
 
