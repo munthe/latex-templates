@@ -83,6 +83,8 @@ function organizeData(db)
 	-- db.'ColumnName'.type is the content type
 	-- db.'ColumnName'[#] is the content
 	local data = { len = db.len-2 }
+	data.FrontUpper = {}
+	data.FrontLower = {}
     for i, v in ipairs(db[1]) do
 		data[db[1][i]] = {type = db[2][i]}
 		for j=3,db.len do
@@ -100,10 +102,11 @@ function db:genContent ()
 	self.row = self.row or 1 --initiate at first data row
 	local latex = ""
 	if self.FrontUpper[self.row] then
-		latex = latex .. self.FrontUpper[self.row]
+		latex = latex .. self.FrontUpper[self.row] 
 	end
 	if self.FrontLower[self.row] then
-		latex = latex .. " \\tcblower " .. self.FrontLower[self.row]
+		latex = latex .. " \\tcblower "
+		.. self.FrontLower[self.row]
 	end
 	self.row = self.row + 1
 	return latex
