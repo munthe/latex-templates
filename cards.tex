@@ -1,6 +1,6 @@
 % lualatex quizogbyt.tex [database.csv]
 % Hvor csv filen skal have to kolonner [Ord] og [Forklaring]
-\documentclass[a4paper,oneside]{memoir}
+\documentclass[a4paper,oneside,12pt]{memoir}
 \usepackage{luacode}
 \newcommand{\luaprint}[1]{\directlua{tex.print(#1)}}
 \begin{luacode}
@@ -36,6 +36,12 @@
 \newcounter{CardSet}
 \newcounter{CardNumber}[CardSet]
 
+% Setting op card content types
+\newcommand{\Text}[1]{\large #1}
+\newcommand{\LongText}[1]{\normalsize #1}
+\newcommand{\SingleWord}[1]{\Huge #1}
+\newcommand{\Image}[1]{\centering \includegraphicss[width=\linewidth,height=\linewidth,keepaspectratio]{#1}}
+
 \title{\luaprint{db_path}}
 
 \begin{document}
@@ -49,7 +55,7 @@ fontupper=\Huge, fontlower=\Large}%
 \foreach \farve in \farver {% Loop der laver flere sæt kort, med forskellig farve
 \stepcounter{CardSet}%
 \tcbset{colframe=\farve}%
-\loop \stepcounter{CardNumber} \ifnum \value{CardNumber} < \luaprint{db.len}%
+\loop \stepcounter{CardNumber} \ifnum \value{CardNumber} < \luaprint{db.len+1}%
 \begin{tcolorbox}
 	\centering
 	\luaprint{db:genContent(tex.count['c@CardNumber'])}

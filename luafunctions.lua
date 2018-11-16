@@ -102,14 +102,15 @@ function db:genContent ()
 	self.row = self.row or 1 --initiate at first data row
 	local latex = ""
 	if self.FrontUpper[self.row] then
-		latex = latex .. self.FrontUpper[self.row] 
+		latex = latex .. "\\"..db.FrontUpper.type.."{"..self.FrontUpper[self.row].."}" 
 	end
 	if self.FrontLower[self.row] then
 		latex = latex .. " \\tcblower "
-		.. self.FrontLower[self.row]
+		.. "\\" .. db.FrontLower.type.."{"..self.FrontLower[self.row].."}" 
 	end
 	self.row = self.row + 1
 	return latex
 end
+
 
 
