@@ -1,5 +1,5 @@
 db_path = arg[2] or "sample.csv"
-number = arg[3] or 2
+number = arg[3] or 1
 colorsPath = "colors.csv"
 
 function string:split(sep) 
@@ -77,21 +77,20 @@ function loadColors(path,number_of_colors,format)
 	return res
 end
 
-function organizeData(db)
+function organizeData(rawdb)
 	-- Organizes the database ready for typesetting
 	-- db.len is the number of cards
 	-- db.'ColumnName'.type is the content type
 	-- db.'ColumnName'[#] is the content
-	local data = { len = db.len-2 }
-	data.FrontUpper = {}
-	data.FrontLower = {}
-    for i, v in ipairs(db[1]) do
-		data[db[1][i]] = {type = db[2][i]}
-		for j=3,db.len do
-			table.insert( data[db[1][i]], db[j][i] )
+	local orgdb = { len = rawdb.len-2, fields={} }
+    for i, v in ipairs(rawdb[1]) do
+		orgdb[rawdb[1][i]] = {type = rawdb[2][i]}
+		orgdb.fields[i] = rawdb[1][i]
+		for j=3,rawdb.len do
+			table.insert( orgdb[rawdb[1][i]], rawdb[j][i] )
 		end
     end
-	return data
+	return orgdb
 end
 
 -- Read data from csv file located in db_path, and organize it in table data.
@@ -101,16 +100,14 @@ function db:genContent ()
 	-- Method to generate card content, returns latex code
 	self.row = self.row or 1 --initiate at first data row
 	local latex = ""
-	if self.FrontUpper[self.row] then
-		latex = latex .. "\\"..db.FrontUpper.type.."{"..self.FrontUpper[self.row].."}" 
-	end
-	if self.FrontLower[self.row] then
-		latex = latex .. " \\tcblower "
-		.. "\\" .. db.FrontLower.type.."{"..self.FrontLower[self.row].."}" 
+	for i,v in ipairs(db.fields) do
+		if self[v][self.row] then
+			if v:find("Lower") then latex = latex .. "\\tcblower " end
+			latex = latex .. "\\"..db[v].type.."{"..self[v][self.row].."}" 
+		end
 	end
 	self.row = self.row + 1
 	return latex
 end
-
 
 
