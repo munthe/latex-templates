@@ -83,11 +83,18 @@ function organizeData(rawdb)
 	-- db.'ColumnName'.type is the content type
 	-- db.'ColumnName'[#] is the content
 	local orgdb = { len = rawdb.len-2, fields={} }
-    for i, v in ipairs(rawdb[1]) do
-		orgdb[rawdb[1][i]] = {type = rawdb[2][i]}
-		orgdb.fields[i] = rawdb[1][i]
-		for j=3,rawdb.len do
-			table.insert( orgdb[rawdb[1][i]], rawdb[j][i] )
+    for i, v in ipairs(rawdb[1]) do -- Looping through each column of data
+		-- Order fields, so they are typeset in the right order
+		if rawdb[1][i]:find("FrontUpper") then field = 1
+			elseif rawdb[1][i]:find("FrontLower") then field = 2
+			elseif rawdb[1][i]:find("BackUpper") then field = 3
+			elseif rawdb[1][i]:find("BackLower") then field = 4
+		end
+		orgdb.numOfFields = 0
+		if orgdb.numOfFields < field then orgdb.numOfFields = field end
+		orgdb[field] = {type = rawdb[2][i]} -- Add type of data in the field
+		for j=3,rawdb.len do -- Loop through all the rows
+			table.insert( orgdb[field], rawdb[j][i] )
 		end
     end
 	return orgdb
@@ -100,14 +107,14 @@ function db:genContent ()
 	-- Method to generate card content, returns latex code
 	self.row = self.row or 1 --initiate at first data row
 	local latex = ""
-	for i,v in ipairs(db.fields) do
-		if self[v][self.row] then
-			if v:find("Lower") then latex = latex .. "\\tcblower " end
-			latex = latex .. "\\"..db[v].type.."{"..self[v][self.row].."}" 
+		if self[1][self.row] then
+			latex = latex .. "\\"..self[1].type.."{"..self[1][self.row].."}"
 		end
-	end
+		if self[2][self.row] then
+			latex = latex .. "\\tcblower "
+			latex = latex .. "\\"..self[2].type.."{"..self[2][self.row].."}"
+		end
 	self.row = self.row + 1
 	return latex
 end
-
 

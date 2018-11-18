@@ -39,7 +39,7 @@
 % Setting op card content types
 \newcommand{\Text}[1]{\large #1}
 \newcommand{\LongText}[1]{\normalsize #1}
-\newcommand{\SingleWord}[1]{\Huge #1}
+\newcommand{\SingleWord}[1]{\Huge \centering #1}
 \newcommand{\Image}[1]{\centering \includegraphicss[width=\linewidth,height=\linewidth,keepaspectratio]{#1}}
 
 \title{\luaprint{db_path}}
@@ -57,7 +57,6 @@ fontupper=\Huge, fontlower=\Large}%
 \tcbset{colframe=\farve}%
 \loop \stepcounter{CardNumber} \ifnum \value{CardNumber} < \luaprint{db.len+1}%
 \begin{tcolorbox}
-	\centering
 	\luaprint{db:genContent(tex.count['c@CardNumber'])}
 \end{tcolorbox}%
 \allowbreak%
