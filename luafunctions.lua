@@ -82,7 +82,9 @@ function organizeData(rawdb)
 	-- db.len is the number of cards
 	-- db.'ColumnName'.type is the content type
 	-- db.'ColumnName'[#] is the content
-	local orgdb = { len = rawdb.len-2, fields={} }
+	local orgdb = { len = rawdb.len-2 }
+	local field = 0
+	local number = 1
     for i, v in ipairs(rawdb[1]) do -- Looping through each column of data
 		-- Order fields, so they are typeset in the right order
 		if rawdb[1][i]:find("FrontUpper") then field = 1
@@ -92,11 +94,16 @@ function organizeData(rawdb)
 		end
 		orgdb.numOfFields = 0
 		if orgdb.numOfFields < field then orgdb.numOfFields = field end
-		orgdb[field] = {type = rawdb[2][i]} -- Add type of data in the field
+		number = 1 --rawdb[1][i]:match('%d+') or 1 -- find the current number
+		orgdb[field] = {}
+		orgdb[field][number] = {type = rawdb[2][i]} -- Add type of data in the field
 		for j=3,rawdb.len do -- Loop through all the rows
-			table.insert( orgdb[field], rawdb[j][i] )
+			table.insert( orgdb[field][number], rawdb[j][i] )
 		end
     end
+print("orgdb",orgdb)
+print("orgdb[1]",orgdb[1])
+--print("orgdb[1][1][1]",orgdb[1][1][1])
 	return orgdb
 end
 
@@ -107,14 +114,29 @@ function db:genContent ()
 	-- Method to generate card content, returns latex code
 	self.row = self.row or 1 --initiate at first data row
 	local latex = ""
-		if self[1][self.row] then
-			latex = latex .. "\\"..self[1].type.."{"..self[1][self.row].."}"
+		if self[1][1][self.row] then
+			latex = latex .. "\\"..self[1][1].type.."{"..self[1][1][self.row].."}"
 		end
-		if self[2][self.row] then
+		if self[2][1][self.row] then
 			latex = latex .. "\\tcblower "
-			latex = latex .. "\\"..self[2].type.."{"..self[2][self.row].."}"
+			latex = latex .. "\\"..self[2][1].type.."{"..self[2][1][self.row].."}"
 		end
 	self.row = self.row + 1
 	return latex
 end
+
+print("db",db)
+
+print("db[1]",db[1])
+
+print("db[1][1]",db[1][1])
+
+print("db[1][1].type",db[1][1].type)
+
+for q,w in ipairs(db[1][1]) do
+	print("for db[1][1]",q,w)
+end
+
+print("db[1][1][1]",db[1][1][1])
+
 
