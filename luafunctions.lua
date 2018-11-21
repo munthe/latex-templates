@@ -94,7 +94,7 @@ function organizeData(rawdb)
 		end
 		orgdb.numOfFields = 0
 		if orgdb.numOfFields < field then orgdb.numOfFields = field end
-		number = 1 --rawdb[1][i]:match('%d+') or 1 -- find the current number
+		number = tonumber( rawdb[1][i]:match('%d+') ) or 1 -- find the current number
 		orgdb[field] = {}
 		orgdb[field][number] = {type = rawdb[2][i]} -- Add type of data in the field
 		for j=3,rawdb.len do -- Loop through all the rows
@@ -114,17 +114,18 @@ function db:genContent ()
 	-- Method to generate card content, returns latex code
 	self.row = self.row or 1 --initiate at first data row
 	local latex = ""
-		if self[1][1][self.row] then
-			latex = latex .. "\\"..self[1][1].type.."{"..self[1][1][self.row].."}"
+	local i = 1
+		if self[1][i][self.row] then
+			latex = latex .. "\\"..self[1][i].type.."{"..self[1][i][self.row].."}"
 		end
-		if self[2][1][self.row] then
+		if self[2][i][self.row] then
 			latex = latex .. "\\tcblower "
-			latex = latex .. "\\"..self[2][1].type.."{"..self[2][1][self.row].."}"
+			latex = latex .. "\\"..self[2][i].type.."{"..self[2][i][self.row].."}"
 		end
 	self.row = self.row + 1
 	return latex
 end
-
+--[[--
 print("db",db)
 
 print("db[1]",db[1])
@@ -138,5 +139,5 @@ for q,w in ipairs(db[1][1]) do
 end
 
 print("db[1][1][1]",db[1][1][1])
-
+--]]--
 
