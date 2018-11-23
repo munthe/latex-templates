@@ -78,32 +78,34 @@ function loadColors(path,number_of_colors,format)
 end
 
 function organizeData(rawdb)
-	-- Organizes the database ready for typesetting
-	-- db.len is the number of cards
-	-- db.'ColumnName'.type is the content type
-	-- db.'ColumnName'[#] is the content
+	--[[-- Organizes the database ready for typesetting
+	db.len is the number of cards
+	each column is saved in db[1=FrontUpper,2=FronterLower][CardNumber]
+		.type is the content type
+		[rowNumber] is the content
+	--]]--
 	local orgdb = { len = rawdb.len-2 }
 	local field = 0
 	local number = 1
+	orgdb.numOfCards = 0		
     for i, v in ipairs(rawdb[1]) do -- Looping through each column of data
 		-- Order fields, so they are typeset in the right order
 		if rawdb[1][i]:find("FrontUpper") then field = 1
 			elseif rawdb[1][i]:find("FrontLower") then field = 2
 			elseif rawdb[1][i]:find("BackUpper") then field = 3
 			elseif rawdb[1][i]:find("BackLower") then field = 4
-		end
-		orgdb.numOfFields = 0
-		if orgdb.numOfFields < field then orgdb.numOfFields = field end
+		end 
+--		orgdb.numOfFields = 0
+--		if orgdb.numOfFields < field then orgdb.numOfFields = field end
+		-- detects if several columns of data for different cards is present
 		number = tonumber( rawdb[1][i]:match('%d+') ) or 1 -- find the current number
+		if orgdb.numOfCards < number then orgdb.numOfCards = number end
 		orgdb[field] = {}
 		orgdb[field][number] = {type = rawdb[2][i]} -- Add type of data in the field
 		for j=3,rawdb.len do -- Loop through all the rows
 			table.insert( orgdb[field][number], rawdb[j][i] )
 		end
     end
-print("orgdb",orgdb)
-print("orgdb[1]",orgdb[1])
---print("orgdb[1][1][1]",orgdb[1][1][1])
 	return orgdb
 end
 
@@ -113,16 +115,23 @@ db = organizeData( readCSV( db_path ) )
 function db:genContent ()
 	-- Method to generate card content, returns latex code
 	self.row = self.row or 1 --initiate at first data row
+	self.number = self.number or 1 
 	local latex = ""
-	local i = 1
-		if self[1][i][self.row] then
-			latex = latex .. "\\"..self[1][i].type.."{"..self[1][i][self.row].."}"
-		end
-		if self[2][i][self.row] then
-			latex = latex .. "\\tcblower "
-			latex = latex .. "\\"..self[2][i].type.."{"..self[2][i][self.row].."}"
-		end
-	self.row = self.row + 1
+	if self[1][self.number] and self[1][self.number][self.row] then
+		--if upper field exists for current card, generate latex
+		latex = latex .. "\\"..self[1][self.number].type.."{"..self[1][self.number][self.row].."}"
+	end
+	if self[2][self.number] and self[2][self.number][self.row] then
+		--if lower field exists for current card, generate latex
+		latex = latex .. "\\tcblower "
+		latex = latex .. "\\"..self[2][self.number].type.."{"..self[2][self.number][self.row].."}"
+	end
+	if self.number < self.numOfCards then --increment number, if there are more cards
+		self.number = self.number + 1		
+	else -- otherwiser, reset number and increment row
+		self.number = 1
+		self.row = self.row + 1
+	end
 	return latex
 end
 --[[--
