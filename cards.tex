@@ -32,6 +32,7 @@
 \usepackage{pgffor}
 \usepackage{tcolorbox}
 \tcbuselibrary{skins,hooks}
+\usepackage{amsmath,amssymb}
 
 \newcounter{CardSet}
 \newcounter{CardNumber}[CardSet]
@@ -41,6 +42,8 @@
 \newcommand{\LongText}[1]{\normalsize #1}
 \newcommand{\SingleWord}[1]{\Huge \centering #1}
 \newcommand{\Image}[1]{\centering \includegraphics[width=\linewidth,height=\linewidth,keepaspectratio]{#1}}
+\newcommand{\Equation}[1]{\begin{equation*} #1 \end{equation*}}
+\newcommand{\Align}[1]{\begin{align*} #1 \end{align*}}
 
 \title{\luaprint{db_path}}
 
