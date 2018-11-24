@@ -5,6 +5,7 @@ Version 0.2
 
 Første række angiver, hvor indholdet skal placeres. Her kan vælges 'FrontUpper' og 'FrontLower'. Dette kan yderlige følges af et tal, hvis der ønskes flere kort med forskellig type indhold. 
 Anden række fortæller typen af indhold og bestemmer på den måde udseenet af kortene. Se liste over understøttede indholds typer længere nede.
+Se eksempler i mappen Examples.
 
 Kortene kompileres ved at kører:
 ```
