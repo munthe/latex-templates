@@ -1,12 +1,20 @@
 # Skabeloner til undervisningsmaterialer
+Version 0.2
 
-(Lua)Latex skabeloner til generering af materialer til læringsaktiviteter i folkeskolen. Skabelonerne er lavet til at læse data fra en CSV fil, for på den måde at gøre det hurtigt at lave flotte kort til fx. quiz og byt, magretheskål, kategoriserings øverlser eller lign.
+(Lua)Latex skabeloner til generering af materialer til læringsaktiviteter i folkeskolen. Skabelonerne er lavet til at læse data fra en CSV fil, for på den måde at gøre det hurtigt at lave flotte kort til fx. quiz og byt, magretheskål, byt-byt-par, kategoriserings øvelser, vendespil og lign øvelser.
 
-Pt. er der to skabeloner *Billederkort* generere kort med en overskift og et billede. Men *QuizOgByt* generer simple kort med en stor tekst øverst og en en mindre længere tekst nederst. 
+Første række angiver, hvor indholdet skal placeres. Her kan vælges 'FrontUpper' og 'FrontLower'. Dette kan yderlige følges af et tal, hvis der ønskes flere kort med forskellig type indhold. 
+Anden række fortæller typen af indhold og bestemmer på den måde udseenet af kortene. Se liste over understøttede indholds typer længere nede.
 
-Kortene kompileres ved at:
+Kortene kompileres ved at kører:
 ```
-lualatex  Billederkort.tex [sti til csv fil] [antal kort sæt]
+lualatex cards.tex [sti til csv fil] [antal kort sæt]
 ```
 
-Testet med en TexLive 2017 installation.
+## Indholds typer
+* __SingleWord__ er tekst sat med \Huge størrelse og centreret
+* __Text__ er tekst sat med \Large
+* __LongText__ er tekst sat med \normalsize.
+* __Image__ modtager stien til et billede og indsætter det med en maks bredde og højde svarende til kortets bredde. 
+
+Testet med en TexLive 2017 installeret på Ubuntu 18.04.
