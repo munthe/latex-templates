@@ -1,21 +1,7 @@
-FrontUpper1, FrontLower1
-SingleWord, LongText
-Exoskelet, Et skelet der sidder udenpå kroppen.
-Endoskelet, Et skelet der sidder indeni kroppen.
-Yngelpleje, De voksne passer på deres unger.
-Vekselvarme, Når man har samme temperatur som omgivelserne.
-Ensvarme, Når man har den samme temperatur hele tiden.
-Kategorisering, Når man deler ting i kategorier efter hvad de har til fælles.
-Skæl, Det som krybdyr og fisk har udenpå kroppen.
-Ingen yngelpleje, De voksne passer ikke på deres unger.
-Gæller, "Fisk har dem på siden af hovedet, for at de kan trække vejret under vand."
-Finner, Fisk har dem på kroppen i stedet for ben. De bruger dem til at bevæge sig med.
-Unger, Det kalder man dyrenes børn.
-Kendetegn, Det ALLE dyrene i kategorien har til fælles.
-Padder, En dyregruppe der indeholder fx frøer og tudser. De er fx kendetegnet ved at have fugtig hud.
-Krybdyr, "En dyregruppe der indeholder fx skildpadder, krokodiller og slanger. De er fx kendetegnet ved at have skæl og lægge æg."
-Pels, Det pattedyr har udenpå kroppen.
-Fjer, Det fugle har udenpå kroppen.
-Næb, Det fugle har i stedet for en mund.
-
-
+FrontUpper1, FrontUpper2, FrontUpper3, FrontUpper4
+Text, LongText, SingleWord, Image
+1Text, 1LongText, 1SingleWord, Billeder/koordinatsystem.png
+2Text, 2LongText, 2SingleWord, Billeder/koordinatsystem.png
+3Text, 3LongText, 3SingleWord, Billeder/koordinatsystem.png
+Text, LongText, SingleWord, Billeder/koordinatsystem.png
+Text, LongText, SingleWord, Billeder/koordinatsystem.png

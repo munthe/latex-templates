@@ -100,7 +100,7 @@ function organizeData(rawdb)
 		-- detects if several columns of data for different cards is present
 		number = tonumber( rawdb[1][i]:match('%d+') ) or 1 -- find the current number
 		if orgdb.numOfCards < number then orgdb.numOfCards = number end
-		orgdb[field] = {}
+		if not orgdb[field] then orgdb[field] = {} end
 		orgdb[field][number] = {type = rawdb[2][i]} -- Add type of data in the field
 		for j=3,rawdb.len do -- Loop through all the rows
 			table.insert( orgdb[field][number], rawdb[j][i] )
@@ -117,11 +117,11 @@ function db:genContent ()
 	self.row = self.row or 1 --initiate at first data row
 	self.number = self.number or 1 
 	local latex = ""
-	if self[1][self.number] and self[1][self.number][self.row] then
+	if self[1] and self[1][self.number] and self[1][self.number][self.row] then
 		--if upper field exists for current card, generate latex
 		latex = latex .. "\\"..self[1][self.number].type.."{"..self[1][self.number][self.row].."}"
 	end
-	if self[2][self.number] and self[2][self.number][self.row] then
+	if self[2] and self[2][self.number] and self[2][self.number][self.row] then
 		--if lower field exists for current card, generate latex
 		latex = latex .. "\\tcblower "
 		latex = latex .. "\\"..self[2][self.number].type.."{"..self[2][self.number][self.row].."}"
