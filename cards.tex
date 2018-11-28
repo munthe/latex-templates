@@ -1,6 +1,6 @@
 % lualatex quizogbyt.tex [database.csv]
 % Hvor csv filen skal have to kolonner [Ord] og [Forklaring]
-\documentclass[a4paper,oneside,12pt,draft]{memoir}
+\documentclass[a4paper,oneside,12pt]{memoir}
 \usepackage{luacode}
 \newcommand{\luaprint}[1]{\directlua{tex.print(#1)}}
 \begin{luacode}
