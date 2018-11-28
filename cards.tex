@@ -58,7 +58,7 @@ fontupper=\Huge, fontlower=\Large}%
 \foreach \farve in \farver {% Loop der laver flere sæt kort, med forskellig farve
 \stepcounter{CardSet}%
 \tcbset{colframe=\farve}%
-\loop \stepcounter{CardNumber} \ifnum \value{CardNumber} < \luaprint{db.len+1}%
+\loop \stepcounter{CardNumber} \ifnum \value{CardNumber} < \luaprint{(db.len*db.numOfCards)+1}%
 \begin{tcolorbox}
 	\luaprint{db:genContent(tex.count['c@CardNumber'])}
 \end{tcolorbox}%
