@@ -1,0 +1,73 @@
+% lualatex quizogbyt.tex [database.csv]
+% Hvor csv filen skal have to kolonner [Ord] og [Forklaring]
+\documentclass[a4paper,oneside,12pt]{memoir}
+\usepackage{luacode}
+\newcommand{\luaprint}[1]{\directlua{tex.print(#1)}}
+\begin{luacode}
+	-- Reading commandline arguments
+
+	-- Loading luafunctions
+	require("luafunctions.lua")
+\end{luacode}
+
+\usepackage{ifdraft}
+
+\settypeblocksize{276mm}{200mm}{*} % Højde*bredde på side
+\setlrmargins{*}{*}{1}
+\setulmargins{*}{*}{0.5}
+\setheaderspaces{*}{3mm}{*}
+\setheadfoot{\baselineskip}{0pt}
+\checkandfixthelayout
+\pagestyle{empty}
+\makeatletter
+\makeoddhead{empty}{\@title, sæt \arabic{CardSet}}{\today}{\thepage}
+\makeevenhead{empty}{\thepage}{\today}{\@title, sæt \arabic{CardSet}}
+\newcommand{\Titel}{\@title}
+\setlength{\parindent}{0mm}
+\makeatother
+\ifdraft{\usepackage{showframe}}{}
+
+\usepackage{graphicx}
+\graphicspath{{./Billeder/}}
+\usepackage{pgffor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,hooks}
+\usepackage{amsmath,amssymb}
+
+\newcounter{CardSet}
+\newcounter{CardNumber}[CardSet]
+
+% Setting op card content types
+\newcommand{\Text}[1]{\large #1}
+\newcommand{\LongText}[1]{\normalsize #1}
+\newcommand{\SingleWord}[1]{\Huge \centering #1}
+\newcommand{\Image}[1]{\centering \includegraphics[width=\linewidth,height=\linewidth,keepaspectratio]{#1}}
+\newcommand{\Equation}[1]{\begin{equation*} #1 \end{equation*}}
+\newcommand{\Align}[1]{\begin{align*} #1 \end{align*}}
+
+\title{\luaprint{db_path}}
+
+\begin{document}
+\tcbset{enhanced,width=(\linewidth)/3,nobeforeafter,arc=4mm,colback=white,
+left=1mm,right=1mm,top=6mm,bottom=6mm,middle=6mm,equal height group=kort,
+valign upper=center, valign lower=bottom, split=1,
+enlarge top by=1mm, enlarge bottom by=1mm,grow to left by=-1mm, grow to right by=-1mm,
+fontupper=\Huge, fontlower=\Large}%
+\ifdraft{\tcbset{show bounding box}}{}%
+\luaprint{loadColors(colorsPath,number)}%
+\foreach \farve in \farver {% Loop der laver flere sæt kort, med forskellig farve
+\stepcounter{CardSet}%
+\tcbset{colframe=\farve}%
+\loop\stepcounter{CardNumber}\ifnum\value{CardNumber}<\luaprint{(db.len*db.numOfCards)+1}%
+\begin{tcolorbox}
+	\luaprint{db:genContent(tex.count['c@CardNumber'])}
+\end{tcolorbox}%
+\allowbreak%
+\repeat%
+\cleardoublepage
+\directlua{db.row=1}%reset row number
+}% End color series
+\end{document}
+
+
+
